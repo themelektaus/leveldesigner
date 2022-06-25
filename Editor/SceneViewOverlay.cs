@@ -91,12 +91,13 @@ namespace LevelDesigner.Editor
     {
         public static SceneViewOverlay instance { get; private set; }
 
-        public static readonly List<IEditorToolbarObject> objects = new List<IEditorToolbarObject>();
+        public static readonly List<IEditorToolbarObject> objects = new();
 
-        public const string ID = "mt-packages-leveldesigner-sceneview-ui";
+        public const string ID = "leveldesigner-sceneview-ui";
 
         SceneViewOverlay() : base(
             SceneViewOverlay_OpenLevelDesigner.ID,
+            SceneViewOverlay_LevelDesignerSettings.ID,
             SceneViewOverlay_SelectChildren.ID,
             SceneViewOverlay_SelectParent.ID,
             SceneViewOverlay_DefaultMode.ID,
@@ -105,9 +106,7 @@ namespace LevelDesigner.Editor
             SceneViewOverlay_MaterialMode.ID,
             SceneViewOverlay_RoundTransformValues.ID,
             SceneViewOverlay_KeepApart.ID,
-            SceneViewOverlay_SetToGround.ID,
-            SceneViewOverlay_RefreshAssetDatabase.ID,
-            SceneViewOverlay_LevelDesignerSettings.ID
+            SceneViewOverlay_SetToGround.ID
         )
         {
             instance = this;
@@ -131,6 +130,47 @@ namespace LevelDesigner.Editor
         protected override bool requiresSceneViewGUI => false;
         protected override bool IsEnabled() => sceneViewUI == null;
         protected override void OnClick() => UIElements.LevelDesignerWindow.Open();
+    }
+
+    [EditorToolbarElement(ID, typeof(SceneView))]
+    class SceneViewOverlay_LevelDesignerSettings : EditorToolbarToggle
+    {
+        public const string ID = SceneViewOverlay.ID + "-level-designer-settings";
+        protected override string GetText() => ""; //"Level Designer Settings";
+        protected override string GetIconName() => "Config";
+        protected override string GetTooltip() => "Level Designer Settings";
+        protected override bool requiresSceneViewGUI => false;
+        protected override bool IsEnabled() => true;
+        protected override bool IsActive()
+        {
+            if (sceneViewUI is null)
+                return UnityEditor.Selection.activeObject == Utils.editorSettings;
+
+            return selection.activeObject == Utils.editorSettings;
+        }
+
+        protected override void OnChange(bool value)
+        {
+            if (sceneViewUI is null)
+            {
+                if (UnityEditor.Selection.activeObject == Utils.editorSettings)
+                {
+                    UnityEditor.Selection.activeObject = null;
+                    return;
+                }
+
+                UnityEditor.Selection.activeObject = Utils.editorSettings;
+                return;
+            }
+
+            if (selection.activeObject == Utils.editorSettings)
+            {
+                selection.SetActive(null);
+                return;
+            }
+
+            selection.SetActive(Utils.editorSettings);
+        }
     }
 
     [EditorToolbarElement(ID, typeof(SceneView))]
@@ -258,68 +298,6 @@ namespace LevelDesigner.Editor
             sceneViewUI.activeTool = Tool.None;
             Undo.RecordObjects(_selection.transforms, "Set To Ground");
             Utils.SetToGround(_selection.transforms);
-        }
-    }
-
-    [EditorToolbarElement(ID, typeof(SceneView))]
-    class SceneViewOverlay_RefreshAssetDatabase : EditorToolbarButton
-    {
-        public const string ID = SceneViewOverlay.ID + "-refresh-asset-database";
-        protected override string GetText() => ""; //"Refresh Asset Database";
-        protected override string GetIconName() => "Refresh";
-        protected override string GetTooltip() => "Refresh Asset Database";
-        protected override bool requiresSceneViewGUI => false;
-        protected override bool IsEnabled() => true;
-        protected override void OnClick()
-        {
-            foreach (var guid in AssetDatabase.FindAssets(typeof(SceneViewUI).Name))
-            {
-                AssetDatabase.ImportAsset(AssetDatabase.GUIDToAssetPath(guid), ImportAssetOptions.ForceUpdate);
-                break;
-            }
-
-            AssetDatabase.Refresh();
-        }
-    }
-
-    [EditorToolbarElement(ID, typeof(SceneView))]
-    class SceneViewOverlay_LevelDesignerSettings : EditorToolbarToggle
-    {
-        public const string ID = SceneViewOverlay.ID + "-level-designer-settings";
-        protected override string GetText() => ""; //"Level Designer Settings";
-        protected override string GetIconName() => "Config";
-        protected override string GetTooltip() => "Level Designer Settings";
-        protected override bool requiresSceneViewGUI => false;
-        protected override bool IsEnabled() => true;
-        protected override bool IsActive()
-        {
-            if (sceneViewUI is null)
-                return UnityEditor.Selection.activeObject == Utils.editorSettings;
-
-            return selection.activeObject == Utils.editorSettings;
-        }
-
-        protected override void OnChange(bool value)
-        {
-            if (sceneViewUI is null)
-            {
-                if (UnityEditor.Selection.activeObject == Utils.editorSettings)
-                {
-                    UnityEditor.Selection.activeObject = null;
-                    return;
-                }
-
-                UnityEditor.Selection.activeObject = Utils.editorSettings;
-                return;
-            }
-
-            if (selection.activeObject == Utils.editorSettings)
-            {
-                selection.SetActive(null);
-                return;
-            }
-
-            selection.SetActive(Utils.editorSettings);
         }
     }
 }

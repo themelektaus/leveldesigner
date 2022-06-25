@@ -53,7 +53,6 @@ namespace LevelDesigner
         public List<AutoBrush> autoBrushes = new();
 
 #if UNITY_EDITOR
-
         readonly Dictionary<Object, Prefab> cache = new();
 
         public List<string> categories
@@ -62,15 +61,9 @@ namespace LevelDesigner
             {
                 var categories = new List<string>();
                 foreach (var prefab in prefabs)
-                {
                     foreach (var category in prefab.categoryList)
-                    {
                         if (!categories.Contains(category))
-                        {
                             categories.Add(category);
-                        }
-                    }
-                }
                 return categories;
             }
         }
@@ -106,9 +99,8 @@ namespace LevelDesigner
         public void Exclude(Object prefab)
         {
             if (!prefabs.Any(x => x.prefab == prefab))
-            {
                 return;
-            }
+
             prefabs.RemoveAll(x => x.prefab == prefab);
             EditorUtility.SetDirty(this);
             Refresh();
@@ -120,8 +112,13 @@ namespace LevelDesigner
         {
             get
             {
-                var prefab = Utils.GetPrefab(gameObject);
-                if (!prefab)
+                GameObject prefab;
+
+                if (gameObject.scene.name is null)
+                    prefab = gameObject;
+                else if (PrefabUtility.IsAnyPrefabInstanceRoot(gameObject))
+                    prefab = PrefabUtility.GetCorrespondingObjectFromSource(gameObject);
+                else
                     return null;
 
                 if (!cache.ContainsKey(prefab))
