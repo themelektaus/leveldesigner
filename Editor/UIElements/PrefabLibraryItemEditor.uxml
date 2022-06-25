@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" show-vertical-scroller="true" style="flex-grow: 1;">
+        <Style src="LevelDesignerWindow.uss" />
+        <ui:Foldout text="Properties" name="properties">
+            <uie:ObjectField label="Prefab" name="prefab" allow-scene-objects="false" />
+            <ui:TextField picking-mode="Ignore" label="Categories" name="categories" />
+            <ui:TextField picking-mode="Ignore" label="Tags" name="tags" />
+            <uie:FloatField label="Keep Apart Factor" value="0" name="keepApartFactor" />
+            <ui:Toggle label="Auto Ground" name="autoGround" />
+            <ui:Toggle label="Auto Align To Normals" name="autoAlignToNormals" />
+            <uie:Vector3Field label="Offset" name="offset" />
+            <uie:FloatField label="Scale" value="0" name="scale" />
+        </ui:Foldout>
+    </ui:ScrollView>
+</ui:UXML>

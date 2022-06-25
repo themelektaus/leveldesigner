@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <ui:VisualElement class="prefab-browser-item">
+        <Style src="LevelDesignerWindow.uss" />
+        <ui:Image />
+        <ui:Label text="&lt;Friendly Name&gt;" />
+        <ui:TextField picking-mode="Ignore" style="display: none;" />
+    </ui:VisualElement>
+</ui:UXML>

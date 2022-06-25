@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <ui:VisualElement name="prefab-browser-root" style="flex-grow: 1;">
+        <Style src="LevelDesignerWindow.uss" />
+        <ui:VisualElement name="categories-area" />
+        <ui:VisualElement name="search-area" style="height: 35px; flex-direction: row; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px;">
+            <ui:TextField picking-mode="Ignore" label="Search" name="search-field" style="flex-grow: 1; -unity-text-align: middle-left;" />
+            <ui:Button name="refresh-button" style="background-image: url(&apos;/Assets/LevelDesigner/Icons/Refresh Button.png&apos;); width: 22px; height: 22px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; -unity-background-scale-mode: scale-to-fit; margin-right: 0; margin-left: 1px;" />
+        </ui:VisualElement>
+        <ui:Button name="test-button" text="Test" />
+        <ui:VisualElement name="prefabs-area" style="flex-grow: 1;">
+            <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" show-vertical-scroller="true" name="prefabs" focusable="true" style="flex-grow: 1;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

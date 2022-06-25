@@ -1,0 +1,16 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <ui:Foldout text="Prefabs">
+        <Style src="LevelDesignerWindow.uss" />
+        <ui:VisualElement name="prefabs-list" />
+    </ui:Foldout>
+    <ui:Foldout text="Settings">
+        <Style src="LevelDesignerWindow.uss" />
+        <uie:Vector2IntField label="Amount" binding-path="amount" />
+        <uie:Vector2Field label="Radius" binding-path="radius" />
+        <uie:Vector3Field label="World Offset" binding-path="worldOffset" style="display: none;" />
+        <uie:Vector3Field label="Local Offset" binding-path="localOffset" style="display: none;" />
+        <uie:Vector3Field label="Min. Scale" binding-path="minScale" />
+        <uie:Vector3Field label="Max. Scale" binding-path="maxScale" />
+        <uie:Vector3Field label="Rotation" binding-path="rotation" />
+    </ui:Foldout>
+</ui:UXML>
