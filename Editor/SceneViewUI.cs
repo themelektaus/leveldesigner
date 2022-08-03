@@ -237,7 +237,7 @@ namespace LevelDesigner.Editor
                             case KeyCode.A:
                                 if (activeTool == Tool.Brush)
                                 {
-                                    // TODO: Previous Brush/Prefab
+                                    // MyTODO: Previous Brush/Prefab
                                     JustUse(e);
                                 }
                                 break;
@@ -245,7 +245,7 @@ namespace LevelDesigner.Editor
                             case KeyCode.D:
                                 if (activeTool == Tool.Brush)
                                 {
-                                    // TODO: Next Brush/Prefab
+                                    // MyTODO: Next Brush/Prefab
                                     JustUse(e);
                                 }
                                 break;
@@ -363,7 +363,7 @@ namespace LevelDesigner.Editor
                 {
                     Undo.RecordObject(renderer, "Material");
 
-                    // TODO: Support for Material Property Override
+                    // MyTODO: Support for Material Property Override
                     //if (gameObject.TryGetComponent(out MaterialPropertyOverride.MaterialPropertyOverride @override))
                     //{
                     //    Undo.RecordObject(@override, "Material Override");

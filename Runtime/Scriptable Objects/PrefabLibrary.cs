@@ -60,10 +60,12 @@ namespace LevelDesigner
             get
             {
                 var categories = new List<string>();
+                
                 foreach (var prefab in prefabs)
                     foreach (var category in prefab.categoryList)
                         if (!categories.Contains(category))
                             categories.Add(category);
+
                 return categories;
             }
         }
